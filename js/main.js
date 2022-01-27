@@ -32,7 +32,7 @@ for (let i = 0; i < items.length; i++) {
                     
                     <div class="bio">
                         <h3>${title[i]}</h3>
-                        <span>${text[i]}</span>
+                        <p>${text[i]}</p>
                     </div>
                     
                 </div> `;
@@ -49,3 +49,71 @@ itemsContainer.innerHTML = slides;
 //creo le thumbs
 let thumbsContainer = document.querySelector('.thumbs-container');
 thumbsContainer.insertAdjacentHTML ("afterbegin", thumbs);
+
+//tengo traccia tramite una variabile della posizione della slide attiva
+
+let currentSlide = 0;
+
+//do la classe active alla prima slides
+let item = document.getElementsByClassName('item');
+item[currentSlide].classList.add('active');
+
+//do la classe active alla prima thumbs
+let thumb = document.getElementsByClassName('item-thumbs');
+thumb[currentSlide].classList.add('active');
+
+//aggiungo un ascoltatore di eventi sull prev per gestire il click
+let prev = document.querySelector ('.prev');
+prev.addEventListener('click',
+    function(){
+
+        //ciclo infinito
+        if(currentSlide > 0){
+            item[currentSlide].classList.remove('active');
+            thumb[currentSlide].classList.remove('active');
+
+            currentSlide--;
+
+            item[currentSlide].classList.add('active');
+            thumb[currentSlide].classList.add('active');
+        } else {
+            item[currentSlide].classList.remove('active');
+            thumb[currentSlide].classList.remove('active');
+
+            currentSlide = item.length - 1;
+
+            item[currentSlide].classList.add('active');
+            thumb[currentSlide].classList.add('active');
+        }
+        
+        
+    }
+);
+
+//aggiungo un ascoltatore di eventi sull next per gestire il click
+let next = document.querySelector ('.next');
+next.addEventListener('click',
+    function(){
+
+        //ciclo infinito
+        if(currentSlide <item.length - 1){
+            item[currentSlide].classList.remove('active');
+            thumb[currentSlide].classList.remove('active');
+
+            currentSlide++;
+
+            item[currentSlide].classList.add('active');
+            thumb[currentSlide].classList.add('active'); 
+
+        }else{
+            item[currentSlide].classList.remove('active');
+            thumb[currentSlide].classList.remove('active');
+
+            currentSlide = 0;
+
+            item[currentSlide].classList.add('active');
+            thumb[currentSlide].classList.add('active'); 
+        }
+        
+    }
+);
